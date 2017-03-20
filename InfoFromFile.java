@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -38,7 +39,6 @@ public class InfoFromFile {
 			//removes semicolon that isn't a split point
 			Matcher n = semicolon.matcher(goods);
 			if (n.find()){
-				System.out.println(n.group());
 				goods = goods.replaceAll(n.group(), n.group().replaceAll(";", ""));
 			}
 			
@@ -57,15 +57,14 @@ public class InfoFromFile {
 				listOfFurnit.add(furnFitting);
 			}
 		}
-		System.out.println(listOfFurnit.size());
 	}
 	
-	public void writeToFile (List<FurnitureGoods> list){
+	public void writeToFile (List<FurnitureGoods> list, String nameYFile){
 		
 		PrintWriter writer = null;
 		
 		try {
-			writer = new PrintWriter("database.txt");
+			writer = new PrintWriter(nameYFile+".txt");
 		} catch (FileNotFoundException e) {
 			System.out.println("Can't create file");
 		}
@@ -76,5 +75,19 @@ public class InfoFromFile {
 		
 		writer.close();
 	}
+	
+	public List<FurnitureGoods>  delDuplicate (List<FurnitureGoods> listDel, List<FurnitureGoods> toDelete){
+		
+			for (Iterator<FurnitureGoods> iter = listDel.listIterator(); iter.hasNext();){
+				FurnitureGoods a = iter.next();
+				for (FurnitureGoods value : toDelete){
+					if (a.getCode().equals(value.getCode())){
+						iter.remove();
+						break;
+					}
+				}
+			}
+		return listDel;
+		}
 	
 }
