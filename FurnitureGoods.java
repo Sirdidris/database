@@ -8,6 +8,7 @@ public class FurnitureGoods {
 	private String unitOfCount = "";
 	private float buyPrice = 0;
 	private float sellPrice = 0;
+	public float profitPerc = 0;
 	
 	public String getName() {
 		return name;
